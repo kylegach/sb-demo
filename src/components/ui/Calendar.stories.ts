@@ -28,7 +28,7 @@ export const SelectDayNextMonth: Story = {
 
     await expect(onMonthChange).toHaveBeenCalled();
 
-    const day = canvas.getByRole('gridcell', { name: '11' });
+    const day = canvas.getByRole('gridcell', { name: '41' });
     await userEvent.click(day);
 
     await expect(onSelect).toHaveBeenCalled();
