@@ -1,0 +1,27 @@
+name: UI Tests
+
+on: deployment_status
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.50.1-noble
+    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+      
+      - name: Install dependencies
+        run: |
+          rm -rf node_modules package-lock.json
+          npm i
+      
+      - name: Run tests
+        run: npm run test-storybook
+        env:
+          SB_URL: '${{ github.event.deployment_status.environment_url }}'
