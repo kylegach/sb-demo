@@ -1,12 +1,13 @@
 name: UI Tests
 
-on: [push]
+on: deployment_status
 
 jobs:
   test:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.50.1-noble
+    if: github.event.deployment_status.state == 'success'
     steps:
       - uses: actions/checkout@v4
       
@@ -22,3 +23,5 @@ jobs:
       
       - name: Run tests
         run: npm run test-storybook
+        env:
+          SB_URL: '${{ github.event.deployment_status.target_url }}'
