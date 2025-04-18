@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from '@storybook/test';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 
 import { Page } from './Page';
 
@@ -21,9 +21,8 @@ export const LoggedOut: Story = {};
 
 // More on interaction testing: https://storybook.js.org/docs/writing-tests/interaction-testing
 export const LoggedIn: Story = {
-  play: async ({ canvasElement }) => {
+  play: async ({ canvas, userEvent }) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    const canvas = within(canvasElement);
     const loginButton = canvas.getByRole('button', { name: /Log in/i });
     await expect(loginButton).toBeInTheDocument();
     await userEvent.click(loginButton);

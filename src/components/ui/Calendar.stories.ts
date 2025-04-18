@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Calendar } from './calendar';
-import { expect, fn, userEvent } from '@storybook/test';
+import { expect, fn } from 'storybook/test';
 
 const meta = {
   component: Calendar,
@@ -25,7 +25,7 @@ export const Default: Story = {
 
 export const SelectDayNextMonth: Story = {
   // @ts-expect-error - onSelect is valid when mode is single
-  async play({ canvas, args: { onMonthChange, onSelect } }) {
+  async play({ canvas, userEvent, args: { onMonthChange, onSelect } }) {
     const nextMonthButton = canvas.getByRole('button', { name: 'Go to next month' });
     await userEvent.click(nextMonthButton);
 

@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { LoginForm } from './login-form';
-import { expect, fn, userEvent } from '@storybook/test';
+import { expect, fn } from 'storybook/test';
 
 const meta = {
   component: LoginForm,
@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>;
 export const EmptyForm: Story = {};
 
 export const FilledForm: Story = {
-  play: async ({ args, canvas }) => {
+  play: async ({ canvas, userEvent, args }) => {
     // 👇 Simulate interactions with the component
     await userEvent.type(canvas.getByLabelText('Email'), 'email@provider.com');
 
